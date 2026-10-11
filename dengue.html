@@ -9,15 +9,17 @@
 <body>
 <main>
 <h1>¿Criadero o mito?</h1>
-<p class="lead">El mosquito <i>Aedes aegypti</i> transmite el dengue. Toca cada tarjeta y descubre si es un lugar donde puede criarse o una idea falsa.</p>
+<p class="lead">Encuentra todos los lugares donde el mosquito <i>Aedes aegypti</i> puede criarse. Si tocas un mito, las tarjetas se barajan de nuevo. Tienes <span id="tiempoTotal"></span> en cada actividad: si se acaba el tiempo, cae la bomba.</p>
 <div class="bar">
 <span class="pill r">Criaderos: <b id="cr">0</b>/<span id="tr"></span></span>
-<span class="pill m">Mitos: <b id="cm">0</b>/<span id="tm"></span></span>
-<button class="reset" id="reset" type="button">Barajar de nuevo</button>
+<span class="pill">Errores: <b id="err">0</b></span>
+<span class="pill reloj" id="pillT">Tiempo: <b id="tiempo">5:00</b></span>
 </div>
+<p class="aviso" id="aviso" role="status"></p>
 <div class="grid" id="grid"></div>
 <section class="end" id="end">
-<h2>¡Completaste el tablero!</h2>
+<h2 id="ganaTitulo">¡Eliminaste todos los criaderos!</h2>
+<p id="resultado"></p>
 <p>Para frenar al mosquito, revisa cada semana:</p>
 <ul>
 <li>Voltea o vacía baldes, llantas y botellas.</li>
@@ -25,6 +27,11 @@
 <li>Tapa tanques y barriles.</li>
 <li>Si tienes fiebre alta y dolor detrás de los ojos, acude al centro de salud.</li>
 </ul>
+<button class="reset" id="sig" type="button" hidden>Siguiente actividad</button>
+</section>
+<section class="end lose" id="lose">
+<h2>¡Boom! Se acabó el tiempo</h2>
+<p>La bomba explotó antes de que encontraras todos los criaderos. Cada criadero sin eliminar es una oportunidad para el mosquito. Recarga la página para intentarlo otra vez.</p>
 </section>
 </main>
 <div class="bomba" id="bomba" aria-hidden="true">💣</div>

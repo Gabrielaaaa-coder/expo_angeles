@@ -31,6 +31,7 @@
     
     /* ===== Ajustes del juego ===== */
     var TIEMPO=50; /* segundos */
+    var SIGUIENTE_PAGINA="habitos.html"; /* página a la que lleva el botón al terminar todas las actividades ("" = ninguna) */
     
     var $=function(id){return document.getElementById(id)};
     var actual=0,TR=0;
@@ -90,8 +91,8 @@
      pararReloj();terminado=true;aviso.textContent="";
      res.textContent="Tardaste "+fmt(TIEMPO-restante)+" y te equivocaste "+errores+(errores===1?" vez.":" veces.");
      var hayMas=actual<ACTIVIDADES.length-1;
-     sig.hidden=!hayMas;
-     ganaT.textContent=hayMas?"¡Eliminaste todos los criaderos!":"¡Completaste todas las actividades!";
+     sig.hidden=!(hayMas||SIGUIENTE_PAGINA);
+     ganaT.textContent=hayMas?"¡Eliminaste todos los criaderos!":"¡Completaste las actividades del dengue!";
      win.classList.add("show");
     }
     function perder(){
@@ -141,6 +142,7 @@
     }
     sig.addEventListener("click",function(){
      if(actual<ACTIVIDADES.length-1){actual++;nuevoJuego();window.scrollTo(0,0)}
+     else if(SIGUIENTE_PAGINA){window.location.href=SIGUIENTE_PAGINA}
     });
     /* Texto "5 minutos" / "50 segundos" según TIEMPO */
     (function(){var m=TIEMPO/60;$("tiempoTotal").textContent=(TIEMPO%60===0)?m+(m===1?" minuto":" minutos"):TIEMPO+" segundos"})();

@@ -1,0 +1,27 @@
+/* Actividad: buenos y malos hábitos (usa también estilos.css) */
+.panel{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0 6px}
+.cajas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.caja{border:3px dashed var(--line);border-radius:16px;background:var(--card);padding:10px 12px;min-height:96px;transition:background .15s,transform .15s}
+.caja h2{margin:0;font-size:1.05rem;display:flex;justify-content:space-between;gap:8px}
+.caja.buena{border-color:var(--good)}.caja.buena h2{color:var(--good)}
+.caja.mala{border-color:var(--bad)}.caja.mala h2{color:var(--bad)}
+.caja.buena.sobre{background:var(--goodbg);transform:scale(1.02)}
+.caja.mala.sobre{background:var(--badbg);transform:scale(1.02)}
+.caja.error{animation:sacude .4s}
+.lista{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px;max-height:4.2rem;overflow:auto}
+.lista li{font-size:.72rem;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+.panel .aviso{margin:8px 0 0;min-height:2.8em;font-size:.92rem}
+
+.pool{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+@media (max-width:700px){.pool{grid-template-columns:repeat(3,1fr)}}
+.ficha{position:relative;aspect-ratio:1/1;border-radius:14px;border:2px solid var(--line);background:#cfe3de;overflow:hidden;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.ficha img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.nombre{position:absolute;left:0;right:0;bottom:0;padding:5px 7px;font-weight:600;font-size:.8rem;line-height:1.2;background:rgba(13,44,59,.8);color:#fff}
+.ficha.levantada{opacity:.35}
+.ficha.fuera{display:none}
+.ficha.sel{outline:3px solid var(--ink);outline-offset:2px}
+.ficha.mal{animation:sacude .4s;border-color:var(--bad)}
+.fantasma{position:fixed;z-index:50;pointer-events:none;cursor:grabbing;box-shadow:0 12px 28px rgba(0,0,0,.35);transform:rotate(-4deg) scale(1.05)}
+.ficha:focus-visible,.caja:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@keyframes sacude{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.caja.error,.ficha.mal{animation:none}}

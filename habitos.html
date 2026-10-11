@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buenos y malos hábitos: hipertensión y diabetes</title>
+<link rel="stylesheet" href="estilos.css">
+<link rel="stylesheet" href="habitos.css">
+</head>
+<body>
+<main>
+<h1>Buenos y malos hábitos</h1>
+<p class="lead">Arrastra cada acción a su caja. Las que ayudan a prevenir la hipertensión y la diabetes van en «Buenos hábitos»; las que perjudican a quienes ya las tienen van en «Malos hábitos».</p>
+<div class="bar">
+<span class="pill r">Bien colocados: <b id="bien">0</b>/<span id="total"></span></span>
+<span class="pill">Errores: <b id="err">0</b></span>
+</div>
+
+<div class="panel">
+<div class="cajas">
+<div class="caja buena" id="buena" data-tipo="bueno" tabindex="0" role="button" aria-label="Caja de buenos hábitos">
+<h2>Buenos hábitos <span><b id="nb">0</b>/<span id="tb"></span></span></h2>
+<ul class="lista" id="lb"></ul>
+</div>
+<div class="caja mala" id="mala" data-tipo="malo" tabindex="0" role="button" aria-label="Caja de malos hábitos">
+<h2>Malos hábitos <span><b id="nm">0</b>/<span id="tm"></span></span></h2>
+<ul class="lista" id="lm"></ul>
+</div>
+</div>
+<p class="aviso" id="aviso" role="status"></p>
+</div>
+
+<div class="pool" id="pool"></div>
+
+<section class="end" id="end">
+<h2>¡Clasificaste todos los hábitos!</h2>
+<p id="resultado"></p>
+<p>Para cuidar la presión y el azúcar en la sangre:</p>
+<ul>
+<li>Mide tu presión arterial y tu glucosa con regularidad.</li>
+<li>Come con poca sal y poca azúcar añadida.</li>
+<li>Muévete unos 30 minutos casi todos los días.</li>
+<li>Si ya tienes el diagnóstico, no dejes el tratamiento sin hablar con tu médico.</li>
+</ul>
+</section>
+</main>
+<script src="habitos.js"></script>
+</body>
+</html>

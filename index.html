@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Criadero o mito? Juego sobre el dengue</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+<h1>¿Criadero o mito?</h1>
+<p class="lead">El mosquito <i>Aedes aegypti</i> transmite el dengue. Toca cada tarjeta y descubre si es un lugar donde puede criarse o una idea falsa.</p>
+<div class="bar">
+<span class="pill r">Criaderos: <b id="cr">0</b>/<span id="tr"></span></span>
+<span class="pill m">Mitos: <b id="cm">0</b>/<span id="tm"></span></span>
+<button class="reset" id="reset" type="button">Barajar de nuevo</button>
+</div>
+<div class="grid" id="grid"></div>
+<section class="end" id="end">
+<h2>¡Completaste el tablero!</h2>
+<p>Para frenar al mosquito, revisa cada semana:</p>
+<ul>
+<li>Voltea o vacía baldes, llantas y botellas.</li>
+<li>Cambia el agua de floreros y bebederos, y cepilla sus paredes.</li>
+<li>Tapa tanques y barriles.</li>
+<li>Si tienes fiebre alta y dolor detrás de los ojos, acude al centro de salud.</li>
+</ul>
+</section>
+</main>
+<div class="bomba" id="bomba" aria-hidden="true">💣</div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<script src="juego.js"></script>
+</body>
+</html>

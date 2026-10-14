@@ -2,47 +2,59 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Buenos y malos hábitos: hipertensión y diabetes</title>
-<link rel="stylesheet" href="estilos.css">
 <link rel="stylesheet" href="habitos.css">
 </head>
 <body>
-<main>
+<main class="juego" id="juego">
+
+<header class="cab">
 <h1>Buenos y malos hábitos</h1>
-<p class="lead">Arrastra cada acción a su caja. Las que ayudan a prevenir la hipertensión y la diabetes van en «Buenos hábitos»; las que perjudican a quienes ya las tienen van en «Malos hábitos».</p>
-<div class="bar">
-<span class="pill r">Bien colocados: <b id="bien">0</b>/<span id="total"></span></span>
-<span class="pill">Errores: <b id="err">0</b></span>
+<p class="sub">Hipertensión y diabetes: ¿ayuda o perjudica?</p>
+<div class="prog" aria-hidden="true"><span id="prog"></span></div>
+<div class="datos">
+<span>Hábito <b id="num">1</b>/<span id="total"></span></span>
+<span>Errores: <b id="err">0</b></span>
+<span>Racha: <b id="racha">0</b></span>
 </div>
+</header>
 
-<div class="panel">
-<div class="cajas">
-<div class="caja buena" id="buena" data-tipo="bueno" tabindex="0" role="button" aria-label="Caja de buenos hábitos">
-<h2>Buenos hábitos <span><b id="nb">0</b>/<span id="tb"></span></span></h2>
-<ul class="lista" id="lb"></ul>
+<section class="escena" id="escena">
+<div class="carta" id="carta" role="img" aria-label="">
+<img id="cimg" alt="" draggable="false">
+<span class="nombre" id="cnombre"></span>
 </div>
-<div class="caja mala" id="mala" data-tipo="malo" tabindex="0" role="button" aria-label="Caja de malos hábitos">
-<h2>Malos hábitos <span><b id="nm">0</b>/<span id="tm"></span></span></h2>
-<ul class="lista" id="lm"></ul>
-</div>
-</div>
-<p class="aviso" id="aviso" role="status"></p>
-</div>
+<p class="msg" id="msg" role="status"></p>
+</section>
 
-<div class="pool" id="pool"></div>
+<nav class="cajas" id="cajas" aria-label="Cajas de hábitos">
+<button type="button" class="caja buena" id="buena" data-tipo="bueno">
+<span class="t">Buenos hábitos</span>
+<span class="n"><b id="nb">0</b>/<span id="tb"></span></span>
+</button>
+<button type="button" class="caja mala" id="mala" data-tipo="malo">
+<span class="t">Malos hábitos</span>
+<span class="n"><b id="nm">0</b>/<span id="tm"></span></span>
+</button>
+</nav>
 
-<section class="end" id="end">
+<section class="fin" id="fin">
 <h2>¡Clasificaste todos los hábitos!</h2>
 <p id="resultado"></p>
-<p>Para cuidar la presión y el azúcar en la sangre:</p>
-<ul>
+<div class="listas">
+<div class="l buena"><h3>Buenos hábitos</h3><ul id="lfb"></ul></div>
+<div class="l mala"><h3>Malos hábitos</h3><ul id="lfm"></ul></div>
+</div>
+<p class="consejo">Para cuidar la presión y el azúcar en la sangre:</p>
+<ul class="tips">
 <li>Mide tu presión arterial y tu glucosa con regularidad.</li>
 <li>Come con poca sal y poca azúcar añadida.</li>
 <li>Muévete unos 30 minutos casi todos los días.</li>
 <li>Si ya tienes el diagnóstico, no dejes el tratamiento sin hablar con tu médico.</li>
 </ul>
 </section>
+
 </main>
 <script src="habitos.js"></script>
 </body>

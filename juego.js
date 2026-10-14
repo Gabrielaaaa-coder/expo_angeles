@@ -4,17 +4,17 @@
    r:true = criadero real, r:false = mito o engaño. */
    var ACTIVIDADES=[
     {cartas:[
-    {img:"imagenes/llanta.jpg",n:"Llanta vieja con agua de lluvia",r:true,w:"El agua limpia estancada es perfecta para sus huevos."},
-    {img:"imagenes/florero.jpg",n:"Florero con agua",r:true,w:"Si no se cambia cada pocos días, se llena de larvas."},
-    {img:"imagenes/balde.jpg",n:"Balde destapado en el patio",r:true,w:"La lluvia lo llena y el mosquito pone huevos en las paredes."},
-    {img:"imagenes/maceta.jpg",n:"Plato bajo la maceta",r:true,w:"Guarda agua por días. Vacíalo y sécalo."},
-    {img:"imagenes/bebedero.jpg",n:"Bebedero de mascota sin cambiar",r:true,w:"Lávalo y cambia el agua todos los días."},
-    {img:"imagenes/rio.jpg",n:"Río con corriente",r:false,w:"El agua en movimiento no sirve: necesita agua estancada."},
-    {img:"imagenes/piscina.jpg",n:"Piscina con cloro y filtro",r:false,w:"Con mantenimiento y cloro, las larvas no sobreviven."},
-    {img:"imagenes/noche.jpg",n:"“Solo pica de noche”",r:false,w:"Falso: el Aedes pica sobre todo de día, al amanecer y al atardecer."},
-    {img:"imagenes/contacto.jpg",n:"Contagio por tocar a un enfermo",r:false,w:"Falso: el dengue se transmite por la picadura, no por contacto."},
+    {img:"imagenes/llanta.png",n:"Llanta vieja con agua de lluvia",r:true,w:"El agua limpia estancada es perfecta para sus huevos."},
+    {img:"imagenes/balde.png",n:"Balde destapado en el patio",r:true,w:"La lluvia lo llena y el mosquito pone huevos en las paredes."},
+    {img:"imagenes/florero.png",n:"Plato bajo la maceta",r:true,w:"Guarda agua por días. Vacíalo y sécalo."},
+    {img:"imagenes/canal.png",n:"Canal con agua empozada",r:true,w:"Es agua estancada"},
+    {img:"imagenes/canalsucio.png",n:"Canal con agua en movimiento",r:false,w:"El agua en movimiento no sirve: necesita agua estancada."},
+    {img:"imagenes/piscina.png",n:"Piscina con cloro y filtro",r:false,w:"Con mantenimiento y cloro, las larvas no sobreviven."},
+    {img:"imagenes/botella.png",n:"“Botellas boca abajo”",r:false,w:"Falso:Evitan que se empoze el agua y por ende no genera criaderos de mosquitos."},
     {img:"imagenes/tanque-tapado.jpg",n:"Tanque lavado y tapado",r:false,w:"Bien hecho: tapado y lavado, no deja entrar al mosquito."}
-    ]},
+    ]}
+    /* ACTIVIDAD 2 (desactivada por ahora). Para activarla: escribe una coma después de la "]}" de arriba
+       y borra los símbolos de comentario de esta parte.
     {cartas:[
     {img:"imagenes/barril.jpg",n:"Barril sin tapa",r:true,w:"Un depósito grande sin tapa es un criadero enorme."},
     {img:"imagenes/latas.jpg",n:"Latas y botellas vacías",r:true,w:"Basta una tapita con agua para que se críen."},
@@ -27,6 +27,7 @@
     {img:"imagenes/antibioticos.jpg",n:"“Los antibióticos curan el dengue”",r:false,w:"Falso: lo causa un virus. Si hay síntomas, acude al centro de salud."},
     {img:"imagenes/todos-mosquitos.jpg",n:"“Todos los mosquitos transmiten dengue”",r:false,w:"Falso: solo lo transmite la hembra infectada del Aedes."}
     ]}
+    */
     ];
     
     /* ===== Ajustes del juego ===== */
@@ -92,12 +93,14 @@
      res.textContent="Tardaste "+fmt(TIEMPO-restante)+" y te equivocaste "+errores+(errores===1?" vez.":" veces.");
      var hayMas=actual<ACTIVIDADES.length-1;
      sig.hidden=!(hayMas||SIGUIENTE_PAGINA);
-     ganaT.textContent=hayMas?"¡Eliminaste todos los criaderos!":"¡Completaste las actividades del dengue!";
+     sig.textContent=hayMas?"Siguiente actividad":"Ir a la actividad de hábitos";
+     ganaT.textContent=hayMas?"¡Eliminaste todos los criaderos!":"¡Completaste el juego del dengue!";
      win.classList.add("show");
+     win.scrollIntoView({behavior:"smooth",block:"center"});
     }
     function perder(){
      pararReloj();clearTimeout(tMito);terminado=true;bloqueado=true;aviso.textContent="";
-     explotar(function(){lose.classList.add("show")});
+     explotar(function(){lose.classList.add("show");lose.scrollIntoView({behavior:"smooth",block:"center"})});
     }
     
     /* ----- la bomba ----- */
@@ -110,7 +113,7 @@
      setTimeout(function(){
       bomba.classList.remove("caer");
       flash.classList.add("bum");
-      document.body.classList.add("tiembla");
+      document.querySelector("main").classList.add("tiembla");
       document.querySelectorAll(".cell").forEach(function(el){
        var ang=Math.random()*Math.PI*2,dist=300+Math.random()*500;
        el.style.setProperty("--x",Math.cos(ang)*dist+"px");
@@ -120,7 +123,7 @@
       });
       setTimeout(function(){
        flash.classList.remove("bum");
-       document.body.classList.remove("tiembla");
+       document.querySelector("main").classList.remove("tiembla");
        document.documentElement.classList.remove("bum");
        ocupado=false;
        alTerminar();
@@ -140,6 +143,7 @@
      aviso.textContent="Elige solo los criaderos del dengue. El cronómetro empieza con tu primer toque.";
      render();
     }
+    $("reintentar").addEventListener("click",nuevoJuego);
     sig.addEventListener("click",function(){
      if(actual<ACTIVIDADES.length-1){actual++;nuevoJuego();window.scrollTo(0,0)}
      else if(SIGUIENTE_PAGINA){window.location.href=SIGUIENTE_PAGINA}

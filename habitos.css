@@ -1,27 +1,64 @@
-/* Actividad: buenos y malos hábitos (usa también estilos.css) */
-.panel{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0 6px}
-.cajas{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.caja{border:3px dashed var(--line);border-radius:16px;background:var(--card);padding:10px 12px;min-height:96px;transition:background .15s,transform .15s}
-.caja h2{margin:0;font-size:1.05rem;display:flex;justify-content:space-between;gap:8px}
-.caja.buena{border-color:var(--good)}.caja.buena h2{color:var(--good)}
-.caja.mala{border-color:var(--bad)}.caja.mala h2{color:var(--bad)}
-.caja.buena.sobre{background:var(--goodbg);transform:scale(1.02)}
-.caja.mala.sobre{background:var(--badbg);transform:scale(1.02)}
-.caja.error{animation:sacude .4s}
-.lista{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px;max-height:4.2rem;overflow:auto}
-.lista li{font-size:.72rem;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
-.panel .aviso{margin:8px 0 0;min-height:2.8em;font-size:.92rem}
+/* Actividad: buenos y malos hábitos (una ficha a la vez) */
+:root{--bg:#e8f4f1;--ink:#0d2c3b;--card:#ffffff;--line:#b7d6d0;--bad:#c92f55;--badbg:#fde6ec;--good:#13795b;--goodbg:#dcf3ea}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.35;-webkit-tap-highlight-color:transparent}
+.juego{max-width:640px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;gap:8px;padding:calc(12px + env(safe-area-inset-top,0px)) 14px calc(14px + env(safe-area-inset-bottom,0px))}
 
-.pool{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
-@media (max-width:700px){.pool{grid-template-columns:repeat(3,1fr)}}
-.ficha{position:relative;aspect-ratio:1/1;border-radius:14px;border:2px solid var(--line);background:#cfe3de;overflow:hidden;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
-.ficha img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.nombre{position:absolute;left:0;right:0;bottom:0;padding:5px 7px;font-weight:600;font-size:.8rem;line-height:1.2;background:rgba(13,44,59,.8);color:#fff}
-.ficha.levantada{opacity:.35}
-.ficha.fuera{display:none}
-.ficha.sel{outline:3px solid var(--ink);outline-offset:2px}
-.ficha.mal{animation:sacude .4s;border-color:var(--bad)}
-.fantasma{position:fixed;z-index:50;pointer-events:none;cursor:grabbing;box-shadow:0 12px 28px rgba(0,0,0,.35);transform:rotate(-4deg) scale(1.05)}
-.ficha:focus-visible,.caja:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-@keyframes sacude{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-@media (prefers-reduced-motion:reduce){.caja.error,.ficha.mal{animation:none}}
+/* encabezado */
+h1{margin:0;font-size:clamp(1.5rem,6vw,2.1rem);line-height:1.05;font-weight:800}
+.sub{margin:2px 0 8px;font-size:.95rem}
+.prog{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.prog span{display:block;height:100%;width:0;background:var(--good);border-radius:999px;transition:width .4s}
+.datos{display:flex;justify-content:space-between;gap:8px;margin-top:6px;font-size:.9rem;font-weight:600}
+
+/* escena con la ficha */
+.escena{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:6px 0}
+.carta{position:relative;width:min(76vw,44vh,340px);width:min(76vw,44dvh,340px);aspect-ratio:1/1;border-radius:22px;overflow:hidden;border:3px solid var(--line);background:#cfe3de;box-shadow:0 10px 24px rgba(13,44,59,.22);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;will-change:transform;transition:transform .28s cubic-bezier(.2,1.4,.4,1),opacity .3s}
+.carta img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.nombre{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;text-align:center;font-weight:800;font-size:clamp(1rem,4.6vw,1.25rem);line-height:1.2;background:rgba(13,44,59,.84);color:#fff}
+.carta.sinimg .nombre{inset:0;display:flex;align-items:center;justify-content:center;background:transparent;color:var(--ink);font-size:1.3rem}
+.carta.arrastra{cursor:grabbing;transition:none;box-shadow:0 20px 36px rgba(13,44,59,.3);z-index:10}
+.carta.entra{animation:entra .42s cubic-bezier(.2,1.3,.4,1)}
+.carta.mal{animation:sacude .42s;border-color:var(--bad)}
+.msg{margin:0;min-height:3.6em;max-width:44ch;text-align:center;font-weight:700;font-size:.98rem}
+.msg.ok{color:var(--good)}
+.msg.mal{color:var(--bad)}
+
+/* cajas abajo */
+.cajas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.caja{font:inherit;color:var(--ink);background:var(--card);border:3px solid var(--line);border-radius:20px;min-height:96px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;touch-action:manipulation;transition:transform .15s,background .15s}
+.caja .t{font-weight:800;font-size:clamp(1rem,4.6vw,1.2rem)}
+.caja .n{font-weight:700;font-size:.95rem}
+.caja.buena{border-color:var(--good)}.caja.buena .t{color:var(--good)}
+.caja.mala{border-color:var(--bad)}.caja.mala .t{color:var(--bad)}
+.caja:active{transform:scale(.97)}
+.caja.buena.sobre{background:var(--goodbg);transform:scale(1.07)}
+.caja.mala.sobre{background:var(--badbg);transform:scale(1.07)}
+.juego.arrastrando .caja{box-shadow:0 0 0 4px rgba(13,44,59,.12)}
+.caja.rebote{animation:rebote .45s}
+.caja.error{animation:sacude .42s}
+.caja:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+/* pantalla final */
+.fin{display:none;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px}
+.juego.terminado .fin{display:block}
+.juego.terminado .escena,.juego.terminado .cajas{display:none}
+.fin h2{margin:0 0 6px;font-size:1.4rem}
+.listas{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.l{border:2px solid var(--line);border-radius:14px;padding:8px 10px}
+.l.buena{border-color:var(--good);background:var(--goodbg)}
+.l.mala{border-color:var(--bad);background:var(--badbg)}
+.l h3{margin:0 0 4px;font-size:.95rem}
+.l ul{margin:0;padding-left:16px;font-size:.82rem}
+.consejo{margin:8px 0 0;font-weight:700}
+.tips{margin:6px 0 0;padding-left:20px}
+@media (max-width:420px){.listas{grid-template-columns:1fr}}
+
+/* confeti */
+.confeti{position:fixed;top:-20px;width:9px;height:14px;z-index:60;pointer-events:none;animation:cae linear forwards}
+@keyframes cae{to{transform:translateY(110vh) rotate(720deg)}}
+
+@keyframes entra{from{opacity:0;transform:translateY(-30px) scale(.7)}to{opacity:1;transform:none}}
+@keyframes rebote{40%{transform:scale(1.12)}}
+@keyframes sacude{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){.carta,.prog span{transition:none}.carta.entra,.carta.mal,.caja.rebote,.caja.error{animation:none}.confeti{display:none}}
